@@ -1,0 +1,63 @@
+/**
+ * WooKapso — shared design tokens (settings + dashboard).
+ * Loaded before admin.css / dashboard.css via wp_enqueue_style.
+ */
+
+:root {
+	--wks-ink: #0a2540;
+	--wks-ink-soft: #425466;
+	--wks-muted: #697386;
+	--wks-line: #e6ebf1;
+	--wks-line-soft: #f1f4f8;
+	--wks-surface: #ffffff;
+	--wks-canvas: #f6f9fc;
+	--wks-brand: #635bff;
+	--wks-brand-hover: #5851e6;
+	--wks-blue-accent: #0066ff;
+	--wks-whatsapp-green: #25d366;
+	--wks-whatsapp-green-d: #1da851;
+	--wks-success-metric: #30c48d;
+	--wks-red: #df1c41;
+	--wks-amber: #f6b63b;
+	--wks-radius: 12px;
+	--wks-radius-sm: 8px;
+	--wks-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.04);
+	--wks-shadow-hover: 0 2px 4px rgba(15, 23, 42, 0.06), 0 12px 24px rgba(15, 23, 42, 0.06);
+}
+
+/* Aliases: WooCommerce settings UI (wkp-*) */
+:root {
+	--wkp-green: var(--wks-whatsapp-green);
+	--wkp-green-d: var(--wks-whatsapp-green-d);
+	--wkp-dark: var(--wks-ink);
+	--wkp-text: var(--wks-ink);
+	--wkp-gray: var(--wks-muted);
+	--wkp-light: var(--wks-canvas);
+	--wkp-border: var(--wks-line);
+	--wkp-red: var(--wks-red);
+	--wkp-yellow: var(--wks-amber);
+	--wkp-blue: var(--wks-brand);
+	--wkp-radius: var(--wks-radius);
+	--wkp-shadow: var(--wks-shadow);
+}
+
+/* Aliases: analytics dashboard (wkpd-*) */
+:root {
+	--wkpd-ink: var(--wks-ink);
+	--wkpd-ink-soft: var(--wks-ink-soft);
+	--wkpd-muted: var(--wks-muted);
+	--wkpd-line: var(--wks-line);
+	--wkpd-line-soft: var(--wks-line-soft);
+	--wkpd-surface: var(--wks-surface);
+	--wkpd-canvas: var(--wks-canvas);
+	--wkpd-brand: var(--wks-brand);
+	--wkpd-brand-hover: var(--wks-brand-hover);
+	--wkpd-blue: var(--wks-blue-accent);
+	--wkpd-green: var(--wks-success-metric);
+	--wkpd-red: var(--wks-red);
+	--wkpd-amber: var(--wks-amber);
+	--wkpd-radius: var(--wks-radius-sm);
+	--wkpd-radius-lg: var(--wks-radius);
+	--wkpd-shadow: var(--wks-shadow);
+	--wkpd-shadow-hover: var(--wks-shadow-hover);
+}

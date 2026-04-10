@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل WooKapso — إعداد إشعارات WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:   #25D366;
+    --green-d: #128C7E;
+    --green-l: #DCF8C6;
+    --dark:    #0A0F1E;
+    --mid:     #1E2A3B;
+    --text:    #1a1a2e;
+    --muted:   #64748B;
+    --border:  #E2E8F0;
+    --cream:   #FAFAF7;
+    --accent:  #FF6B35;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--dark);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37,211,102,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 85% 60%, rgba(18,140,126,.12) 0%, transparent 60%);
+    padding: 80px 24px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37,211,102,.12);
+    border: 1px solid rgba(37,211,102,.25);
+    color: var(--green);
+    padding: 6px 18px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    animation: fadeDown .6s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    animation: fadeDown .7s .1s ease both;
+  }
+
+  .hero h1 span { color: var(--green); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,.55);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    animation: fadeDown .7s .2s ease both;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    animation: fadeDown .7s .3s ease both;
+  }
+
+  .hero-pill {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.75);
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ── Section Wrapper ── */
+  .container { max-width: 780px; margin: 0 auto; padding: 0 20px; }
+
+  .section {
+    padding: 72px 24px;
+  }
+
+  .section + .section { padding-top: 0; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--green-d);
+    background: rgba(18,140,126,.08);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  /* ── Steps ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0 24px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp .5s ease forwards;
+  }
+
+  .step:nth-child(1) { animation-delay: .1s; }
+  .step:nth-child(2) { animation-delay: .2s; }
+  .step:nth-child(3) { animation-delay: .3s; }
+  .step:nth-child(4) { animation-delay: .4s; }
+  .step:nth-child(5) { animation-delay: .5s; }
+  .step:nth-child(6) { animation-delay: .6s; }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--dark);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 4px var(--cream), 0 0 0 5px var(--border);
+    transition: background .3s;
+  }
+
+  .step:hover .step-num { background: var(--green-d); }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    min-height: 32px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-body {
+    padding: 0 0 40px;
+  }
+
+  .step-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .step-title .emoji { font-size: 22px; }
+
+  .step-text {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── Info Box ── */
+  .info-box {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 14.5px;
+    color: var(--text);
+    box-shadow: 0 2px 12px rgba(0,0,0,.04);
+  }
+
+  .info-box.green {
+    background: #F0FFF8;
+    border-color: rgba(37,211,102,.3);
+  }
+
+  .info-box.orange {
+    background: #FFF8F0;
+    border-color: rgba(255,107,53,.25);
+  }
+
+  .info-box.blue {
+    background: #F0F6FF;
+    border-color: rgba(59,130,246,.2);
+  }
+
+  .info-box strong {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .info-box ul {
+    padding-right: 18px;
+    margin: 8px 0 0;
+  }
+
+  .info-box li { margin-bottom: 6px; }
+
+  /* ── Path ── */
+  .path {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: var(--dark);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13.5px;
+    margin-top: 12px;
+  }
+
+  .path-item { color: rgba(255,255,255,.7); font-weight: 600; }
+  .path-arrow { color: var(--green); font-size: 16px; }
+  .path-item.active { color: var(--green); }
+
+  /* ── Screenshot mockup ── */
+  .mockup {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,.07);
+    margin-top: 16px;
+  }
+
+  .mockup-bar {
+    background: var(--dark);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mockup-dots { display: flex; gap: 6px; }
+  .mockup-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .mockup-dot:nth-child(1) { background: #FF5F57; }
+  .mockup-dot:nth-child(2) { background: #FEBC2E; }
+  .mockup-dot:nth-child(3) { background: #28C840; }
+
+  .mockup-url {
+    flex: 1;
+    background: rgba(255,255,255,.07);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,.5);
+    direction: ltr;
+  }
+
+  .mockup-body { padding: 20px; }
+
+  /* WhatsApp bubbles */
+  .wa-chat { display: flex; flex-direction: column; gap: 10px; }
+
+  .wa-bubble {
+    max-width: 72%;
+    padding: 10px 14px 8px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .wa-bubble.received {
+    background: #fff;
+    border: 1px solid var(--border);
+    align-self: flex-start;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+
+  .wa-bubble.sent {
+    background: var(--green-l);
+    align-self: flex-end;
+    border-bottom-left-radius: 4px;
+  }
+
+  .wa-time {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: left;
+    margin-top: 4px;
+  }
+
+  /* ── Templates section ── */
+  .templates-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 560px) {
+    .templates-grid { grid-template-columns: 1fr; }
+  }
+
+  .tpl-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .tpl-card:hover {
+    border-color: var(--green);
+    box-shadow: 0 4px 20px rgba(37,211,102,.12);
+  }
+
+  .tpl-icon { font-size: 28px; margin-bottom: 10px; }
+
+  .tpl-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .tpl-slug {
+    font-size: 11.5px;
+    color: var(--green-d);
+    background: rgba(18,140,126,.08);
+    padding: 2px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-family: monospace;
+    direction: ltr;
+  }
+
+  .tpl-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .tpl-vars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .tpl-var {
+    background: var(--dark);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    direction: ltr;
+  }
+
+  /* ── Tips ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 560px) {
+    .tips-grid { grid-template-columns: 1fr; }
+  }
+
+  .tip-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.03);
+  }
+
+  .tip-icon { font-size: 28px; margin-bottom: 10px; }
+  .tip-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .tip-text { font-size: 13.5px; color: var(--muted); }
+
+  /* ── Footer ── */
+  .footer {
+    background: var(--dark);
+    text-align: center;
+    padding: 48px 24px;
+    color: rgba(255,255,255,.4);
+    font-size: 13px;
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 24px;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Print ── */
+  @media print {
+    .hero { background: #111 !important; -webkit-print-color-adjust: exact; }
+    .step { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">📱 دليل الاستخدام — محدّث للإصدار الحالي</div>
+  <h1>WooKapso<br><span>إشعارات WhatsApp</span><br>لمتجرك</h1>
+  <p class="hero-sub">اربط متجرك WooCommerce مع WhatsApp في أقل من 30 دقيقة — بدون أي خبرة تقنية</p>
+  <div class="hero-pills">
+    <span class="hero-pill">✅ سهل التثبيت</span>
+    <span class="hero-pill">📦 4 إشعارات + اختيار تيمبلت لكل حدث</span>
+    <span class="hero-pill">📊 لوحة تحليلات ورسوم بيانية</span>
+    <span class="hero-pill">📝 تيمبلتات من داخل ووردبريس</span>
+    <span class="hero-pill">📦 تكامل Bosta (شحن وتتبع)</span>
+    <span class="hero-pill">📋 سجل كامل للرسائل</span>
+    <span class="hero-pill">🧪 اختبار بضغطة زر</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════ STEP 1 — KAPSO ═══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">الخطوة الأولى</div>
+    <div class="section-title">إنشاء حساب Kapso</div>
+    <p class="section-desc">Kapso هو الوسيط اللي بيوصّل متجرك بـ WhatsApp — محتاج تفتح حساب عنده الأول</p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🌐</span> افتح موقع Kapso</div>
+          <p class="step-text">روح على المتصفح وادخل على الموقع</p>
+          <div class="path">
+            <span class="path-item active">app.kapso.ai</span>
+          </div>
+          <div class="info-box green" style="margin-top:14px;">
+            <strong>💡 تلميح</strong>
+            ممكن تسجّل بـ Google Account عشان يكون أسرع
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📁</span> اعمل Project جديد</div>
+          <p class="step-text">بعد ما تسجّل دخول، اعمل Project باسم متجرك</p>
+          <div class="info-box">
+            <strong>المسار داخل Kapso</strong>
+            <div class="path" style="margin-top:10px;">
+              <span class="path-item">Dashboard</span>
+              <span class="path-arrow">←</span>
+              <span class="path-item">New Project</span>
+              <span class="path-arrow">←</span>
+              <span class="path-item active">اكتب اسم متجرك</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🔑</span> اعمل API Key</div>
+          <p class="step-text">ده المفتاح اللي هيربط البلجن بـ Kapso — محتاج تنسخه</p>
+          <div class="path">
+            <span class="path-item">Settings</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">API Keys</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">Create New Key</span>
+          </div>
+          <div class="info-box orange" style="margin-top:14px;">
+            <strong>⚠️ مهم جداً</strong>
+            انسخ الـ API Key وحطه في مكان آمن — مش هيتعرض تاني بعد ما تقفل الصفحة
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📞</span> وصّل رقم WhatsApp Business</div>
+          <p class="step-text">دي الخطوة الأهم — تحتاج رقم WhatsApp Business مش رقمك الشخصي</p>
+          <div class="path">
+            <span class="path-item">WhatsApp</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">Numbers</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">Connect Number</span>
+          </div>
+          <div class="info-box blue" style="margin-top:14px;">
+            <strong>📋 هتحتاج تجهّز</strong>
+            <ul>
+              <li>رقم موبايل جديد (ميكونش مسجّل WhatsApp قبل كده)</li>
+              <li>Facebook Business Manager Account</li>
+              <li>Kapso هيخليك تتحقق من الرقم برسالة SMS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🔢</span> انسخ الـ Phone Number ID</div>
+          <p class="step-text">بعد ما تربط الرقم، هتلاقي رقم تعريفي ليه — محتاجه للبلجن</p>
+          <div class="path">
+            <span class="path-item">WhatsApp</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">Numbers</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">انسخ الـ ID</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ STEP 2 — TEMPLATES ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">الخطوة الثانية</div>
+    <div class="section-title">إنشاء رسائل التيمبلت</div>
+    <p class="section-desc">قبل ما تبعت أي رسالة لعميل، لازم Meta تعتمدها الأول — وده بياخد من يوم لـ 3 أيام</p>
+
+    <div class="templates-grid">
+
+      <div class="tpl-card">
+        <div class="tpl-icon">🛒</div>
+        <div class="tpl-name">تأكيد الأوردر</div>
+        <div class="tpl-slug">order_confirmation_buttons_ar</div>
+        <div class="tpl-text">
+          أهلاً <strong>{{1}}</strong>! 🎉 تم استلام طلبك رقم <strong>{{2}}</strong>. المبلغ: <strong>{{3}}</strong>. هل تريد تأكيد الطلب؟
+        </div>
+        <div style="display:flex;gap:6px;margin:10px 0;">
+          <span style="background:#25D366;color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;">✅ تأكيد الطلب</span>
+          <span style="background:#EF4444;color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;">❌ إلغاء الطلب</span>
+        </div>
+        <div class="tpl-vars">
+          <span class="tpl-var">{{1}} اسم العميل</span>
+          <span class="tpl-var">{{2}} رقم الأوردر</span>
+          <span class="tpl-var">{{3}} المبلغ</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-icon">⚙️</div>
+        <div class="tpl-name">جاري التجهيز</div>
+        <div class="tpl-slug">order_processing_ar</div>
+        <div class="tpl-text">
+          مرحباً <strong>{{1}}</strong>! ⚙️ طلبك رقم <strong>{{2}}</strong> يتم تجهيزه الآن. سنُعلمك فور شحنه.
+        </div>
+        <div class="tpl-vars">
+          <span class="tpl-var">{{1}} اسم العميل</span>
+          <span class="tpl-var">{{2}} رقم الأوردر</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-icon">🚚</div>
+        <div class="tpl-name">تم الشحن</div>
+        <div class="tpl-slug">order_shipped_ar</div>
+        <div class="tpl-text">
+          مرحباً <strong>{{1}}</strong>! 🚚 طلبك رقم <strong>{{2}}</strong> في الطريق إليك. رقم التتبع: <strong>{{3}}</strong>.
+        </div>
+        <div class="tpl-vars">
+          <span class="tpl-var">{{1}} اسم العميل</span>
+          <span class="tpl-var">{{2}} رقم الأوردر</span>
+          <span class="tpl-var">{{3}} رقم التتبع</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-icon">❌</div>
+        <div class="tpl-name">تم الإلغاء</div>
+        <div class="tpl-slug">order_cancelled_ar</div>
+        <div class="tpl-text">
+          مرحباً <strong>{{1}}</strong>. نأسف، طلبك رقم <strong>{{2}}</strong> تم إلغاؤه. للاستفسار تواصل معنا.
+        </div>
+        <div class="tpl-vars">
+          <span class="tpl-var">{{1}} اسم العميل</span>
+          <span class="tpl-var">{{2}} رقم الأوردر</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="info-box orange" style="margin-top:24px;">
+      <strong>⏳ انتظر الـ Approval</strong>
+      بعد ما تحط التيمبلت في Kapso، Meta بتراجعه وبتعتمده. ممكن ياخد من <strong>بضع ساعات لـ 3 أيام</strong>. لو اترفض، غيّر الصياغة وجرب تاني.
+    </div>
+
+    <div class="steps" style="margin-top:32px;">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📝</span> روح لـ Templates في Kapso</div>
+          <div class="path">
+            <span class="path-item">WhatsApp</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">Templates</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">Create Template</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">⚙️</span> الإعدادات المطلوبة لكل تيمبلت</div>
+          <div class="info-box" style="margin-top:0;">
+            <ul>
+              <li><strong>Category:</strong> اختار <strong>Utility</strong> (مش Marketing)</li>
+              <li><strong>Language:</strong> اختار <strong>Arabic</strong></li>
+              <li><strong>Name:</strong> اكتب اسم التيمبلت بالضبط زي ما هو فوق</li>
+              <li><strong>Body:</strong> انسخ النص وغيّر {{1}} و{{2}} بالمتغيرات</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">⏳</span> انتظر الـ Approval</div>
+          <p class="step-text">لو Status بقى <strong style="color:#25D366;">APPROVED</strong> — خلاص جاهز! لو <strong style="color:#EF4444;">REJECTED</strong> — عدّل النص وحاول تاني</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ STEP 3 — PLUGIN ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">الخطوة الثالثة</div>
+    <div class="section-title">تثبيت البلجن على WordPress</div>
+    <p class="section-desc">الجزء السهل! كل حاجة بضغطات بسيطة من الـ Dashboard</p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📤</span> رفع البلجن</div>
+          <p class="step-text">روح على لوحة تحكم WordPress</p>
+          <div class="path">
+            <span class="path-item">Plugins</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">Add New</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">Upload Plugin</span>
+          </div>
+          <div class="info-box" style="margin-top:14px;">
+            اختار ملف <strong>woo-kapso.zip</strong> واضغط <strong>Install Now</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">✅</span> تفعيل البلجن</div>
+          <p class="step-text">بعد التثبيت، اضغط <strong>Activate Plugin</strong></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">⚙️</span> ادخل على إعدادات البلجن</div>
+          <p class="step-text">من القائمة الجانبية لـ WordPress:</p>
+          <div class="path">
+            <span class="path-item">WooCommerce</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">📱 WhatsApp Kapso</span>
+          </div>
+          <div class="info-box blue" style="margin-top:14px;">
+            <strong>📊 لوحة تحليلات منفصلة</strong>
+            من الشريط الجانبي اختار <strong>WooKapso</strong> (أيقونة رسم بياني) — هتلاقي مؤشرات الطلبات، رسوم بيانية، وأحدث الطلبات. من نفس الصفحة تقدر تفتح السجلات أو الإعدادات بضغطة.
+          </div>
+          <p class="step-text" style="margin-top:14px;">داخل <strong>WhatsApp Kapso</strong> في تبويبات:</p>
+          <div class="info-box" style="margin-top:8px;">
+            <ul>
+              <li><strong>⚙️ الإعدادات</strong> — المفاتيح، الـ Webhook، تفعيل الإشعارات وربط كل حدث بتيمبلت</li>
+              <li><strong>📝 التيمبلتات</strong> — إنشاء تيمبلت جديد من الووردبريس، معاينة، وقائمة التيمبلتات المعتمدة من Kapso</li>
+              <li><strong>🧪 اختبار</strong> — إرسال نصي أو تيمبلت لأي رقم</li>
+              <li><strong>📦 Bosta</strong> — ربط شحن Bosta، تذكير وإلغاء تلقائي للطلبات غير المؤكدة</li>
+              <li><strong>📋 السجلات</strong> — سجل الإرسال مع ترقيم صفحات</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🔑</span> ادخل بيانات Kapso والـ Webhook</div>
+          <div class="info-box" style="margin-top:0;">
+            <ul>
+              <li><strong>API Key:</strong> الكود اللي نسخته من Kapso في الخطوة الأولى</li>
+              <li><strong>Phone Number ID:</strong> الـ ID اللي نسخته من Kapso</li>
+              <li><strong>سر Webhook (اختياري):</strong> نص سري طويل تحطه هنا ونفس القيمة في إعدادات Webhook بـ Kapso — الطلبات الواردة لازم ترفق الترويسة <code style="direction:ltr;font-size:12px;">X-WooKapso-Secret</code> بنفس السر (موصى به للإنتاج)</li>
+            </ul>
+          </div>
+          <div class="info-box green" style="margin-top:12px;">
+            <strong>🔌 اختبر الاتصال</strong>
+            بعد ما تحط البيانات، اضغط زرار <strong>"اختبر الاتصال"</strong> — لو ظهر ✅ يبقى تمام!
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🔔</span> فعّل الإشعارات واربط التيمبلت</div>
+          <p class="step-text">لكل من الأربع حالات فيه مفتاح تفعيل + قائمة منسدلة تختار بيها <strong>اسم التيمبلت</strong> المعتمد في Kapso. بعد ما تعتمد تيمبلت جديد من Meta، اضغط <strong>🔄</strong> بجانب القائمة لتحديث الأسماء.</p>
+          <div class="info-box">
+            <ul>
+              <li>🛒 <strong>أوردر جديد</strong> — يتبعت لما العميل يطلب</li>
+              <li>⚙️ <strong>جاري التجهيز</strong> — يتبعت لما تبدأ تجهّز الأوردر</li>
+              <li>🚚 <strong>تم الشحن</strong> — يتبعت لما تسلّم للشحن</li>
+              <li>❌ <strong>تم الإلغاء</strong> — يتبعت لو اتلغى الأوردر</li>
+            </ul>
+          </div>
+          <div class="info-box orange" style="margin-top:12px;">
+            <strong>📝 تبويب التيمبلتات</strong>
+            تقدر تنشئ تيمبلت جديد (نص، لغة، فئة Utility/Marketing، أزرار Quick Reply) وترسله لـ Meta للمراجعة من داخل الووردبريس — بدون ما تعيد نسخ النص يدوياً في Kapso لو حابب تستخدم الأداة من هنا.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">6</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">💾</span> احفظ الإعدادات</div>
+          <p class="step-text">اضغط <strong>"حفظ الإعدادات"</strong> وخلاص البلجن شغّال!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ DASHBOARD ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">جديد — لوحة التحليلات</div>
+    <div class="section-title">صفحة WooKapso في القائمة الجانبية</div>
+    <p class="section-desc">لوحة منفصلة عن إعدادات واتساب: أرقام ملخّصة، رسوم للطلبات بمرور الوقت، مقارنة تأكيد مقابل إلغاء، ومعدلات التأكيد/الإلغاء، وجدول آخر الطلبات مع التتبع</p>
+    <div class="path" style="margin-bottom:20px;">
+      <span class="path-item">WordPress Admin</span>
+      <span class="path-arrow">←</span>
+      <span class="path-item active">WooKapso</span>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">📈</div>
+        <div class="tip-title">ماذا تعرض؟</div>
+        <div class="tip-text">إجمالي الطلبات، المؤكدة (قيد التجهيز/معلّقة)، الملغاة، المكتملة كشحن، مع مخطط زمني ومخطط أعمدة لمقارنة التأكيد والإلغاء خلال الفترة المختارة (حتى 90 يوماً).</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔄</div>
+        <div class="tip-title">تحديث البيانات</div>
+        <div class="tip-text">زر <strong>Refresh</strong> يعيد جلب الأرقام من المتجر. روابط سريعة إلى <strong>سجل الرسائل</strong> و<strong>الإعدادات</strong>.</div>
+      </div>
+    </div>
+    <div class="info-box blue" style="margin-top:20px;">
+      <strong>🔐 الصلاحيات</strong>
+      مديرو المتجر الذين لديهم صلاحية إدارة WooCommerce يمكنهم فتح اللوحة؛ الإعدادات الحساسة (مفاتيح API) تبقى تحت صلاحيات المدير حسب إعدادات ووردبريس.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ BOSTA ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">جديد — الشحن</div>
+    <div class="section-title">تكامل Bosta (مصر)</div>
+    <p class="section-desc">من تبويب <strong>📦 Bosta</strong> داخل WhatsApp Kapso تقدر تربط مفتاح Bosta، عنوان الاستلام، بيانات الطرد، ورابط التتبع العام. عند التفعيل يمكن إنشاء شحنة تلقائياً عندما يؤكد العميل الطلب من واتساب</p>
+    <div class="steps" style="margin-top:8px;">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">⚙️</span> الإعدادات العامة</div>
+          <p class="step-text">فعّل الخيار، أدخل <strong>API key</strong>، واختر البيئة <strong>Live</strong> أو <strong>Sandbox</strong>. املأ عنوان الاستلام (السطرين، المدينة، المنطقة، معرف المنطقة إن طلبته Bosta) وقيم افتراضية لموقع التسليم إن لزم.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">⏱️</span> تذكير وإلغاء تلقائي (WP-Cron)</div>
+          <p class="step-text">بعد إرسال رسالة تأكيد الطلب عبر واتساب، يمكن جدولة <strong>تذكير</strong> بعد عدد ساعات (افتراضي 2) و<strong>إلغاء تلقائي</strong> للطلب إن بقي غير مؤكد بعد عدد ساعات (افتراضي 24). يحتاج موقعك أن يعمل عليه <strong>WP-Cron</strong> أو cron النظام على <code style="direction:ltr;">wp-cron.php</code>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📋</span> من شاشة الطلب</div>
+          <p class="step-text">في صفحة تعديل الطلب (Classic أو HPOS) يظهر صندوق جانبي <strong>Bosta shipment</strong>: إنشاء شحنة يدوياً، عرض رقم التتبع والحالة، وزر <strong>إعادة إرسال رسالة التتبع</strong> على واتساب إن كان التتبع موجوداً.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box orange" style="margin-top:16px;">
+      <strong>🛠️ للمطوّرين</strong>
+      إذا رفضت Bosta الطلب، يمكن تعديل الحمولة عبر فلتر ووردبريس <code style="direction:ltr;font-size:12px;">wookapso_bosta_delivery_payload</code>.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ STEP 4 — TEST ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">الخطوة الرابعة</div>
+    <div class="section-title">اختبر إن كل حاجة شغّالة</div>
+    <p class="section-desc">مش محتاج تعمل أوردر حقيقي عشان تتأكد — فيه زرار اختبار جاهز</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🧪</span> روح على تبويب "اختبار"</div>
+          <div class="path">
+            <span class="path-item">WooCommerce</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">WhatsApp Kapso</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">🧪 اختبار</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📱</span> ابعت رسالة تجريبية</div>
+          <p class="step-text">ادخل رقم موبايلك؛ من <strong>نوع الرسالة</strong> تقدر تختار رسالة نصية بسيطة أو أي <strong>Template معتمد</strong> لاختبار الأزرار — ثم اضغط إرسال الاختبار</p>
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="mockup-dots">
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+              </div>
+              <div class="mockup-url">yoursite.com/wp-admin/admin.php?page=wookapso&tab=test</div>
+            </div>
+            <div class="mockup-body">
+              <div class="wa-chat">
+                <div class="wa-bubble received">
+                  أهلاً عميل! 🎉 تم استلام طلبك رقم 12345. المبلغ: 500 جنيه. هل تريد تأكيد الطلب؟
+                  <div class="wa-time">12:34 ✓✓</div>
+                  <div style="display:flex;gap:6px;margin-top:10px;flex-direction:column;">
+                    <div style="border:1.5px solid #25D366;color:#25D366;text-align:center;padding:7px;border-radius:8px;font-size:13px;font-weight:700;">✅ تأكيد الطلب</div>
+                    <div style="border:1.5px solid #EF4444;color:#EF4444;text-align:center;padding:7px;border-radius:8px;font-size:13px;font-weight:700;">❌ إلغاء الطلب</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info-box green" style="margin-top:14px;">
+            لو وصلتك الرسالة على الموبايل ✅ — يبقى كل حاجة شغّالة تمام!
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📋</span> راجع السجلات</div>
+          <p class="step-text">في تبويب "السجلات" هتلاقي كل رسالة اتبعتت مع حالتها</p>
+          <div class="path">
+            <span class="path-item">WhatsApp Kapso</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">📋 السجلات</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ WEBHOOK ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">خطوة إضافية مهمة</div>
+    <div class="section-title">ربط ردود العملاء</div>
+    <p class="section-desc">لو عميل رد بـ "تأكيد" — البلجن يقدر يحدّث الأوردر تلقائياً</p>
+
+    <div class="info-box blue">
+      <strong>🔗 Webhook URL — انسخه وحطه في Kapso</strong>
+      <div style="direction:ltr; font-family:monospace; font-size:13px; margin-top:10px; word-break:break-all; color:#1E40AF; padding:10px; background:rgba(59,130,246,.08); border-radius:8px;">
+        https://yoursite.com/wp-json/wookapso/v1/inbound
+      </div>
+      <p style="margin-top:10px; font-size:13px; color:#64748B;">⚠️ غيّر <strong>yoursite.com</strong> بدومين موقعك الفعلي</p>
+      <p style="margin-top:12px; font-size:14px; color:var(--text);"><strong>السر الاختياري:</strong> لو فعّلت <strong>سر Webhook</strong> في تبويب الإعدادات، ركّب نفس القيمة في Kapso إن أمكن، وتأكد أن الطلبات الواردة تحمل الترويسة <code style="direction:ltr;font-size:12px;">X-WooKapso-Secret</code> — وإلا لن يُقبل الـ webhook.</p>
+    </div>
+
+    <div class="steps" style="margin-top:28px;">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">📋</span> انسخ الـ Webhook URL</div>
+          <p class="step-text">في تبويب "اختبار" في البلجن، هتلاقي الـ URL جاهز — انسخه</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🔗</span> أضفه في Kapso</div>
+          <div class="path">
+            <span class="path-item">Kapso Dashboard</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">WhatsApp</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item">Webhooks</span>
+            <span class="path-arrow">←</span>
+            <span class="path-item active">Add Webhook</span>
+          </div>
+          <div class="info-box" style="margin-top:12px;">
+            <ul>
+              <li><strong>URL:</strong> الـ URL اللي نسخته من البلجن</li>
+              <li><strong>Event:</strong> اختار <strong>whatsapp.message.received</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title"><span class="emoji">🎉</span> جاهز!</div>
+          <p class="step-text">دلوقتي لو عميل رد بـ <strong>"تأكيد"</strong> أو <strong>"1"</strong> — الأوردر بتاعه بيتحول لـ Processing تلقائياً</p>
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="mockup-dots">
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+              </div>
+              <div class="mockup-url">WhatsApp Chat</div>
+            </div>
+            <div class="mockup-body">
+              <div class="wa-chat">
+                <div class="wa-bubble received">
+                  أهلاً محمد! 🎉 تم استلام طلبك رقم 55. المبلغ: 320 جنيه. هل تريد تأكيد الطلب؟
+                  <div class="wa-time">10:15 ✓✓</div>
+                  <div style="display:flex;gap:6px;margin-top:8px;flex-direction:column;">
+                    <div style="border:1.5px solid #25D366;color:#25D366;text-align:center;padding:6px;border-radius:8px;font-size:12px;font-weight:700;">✅ تأكيد الطلب</div>
+                    <div style="border:1.5px solid #EF4444;color:#EF4444;text-align:center;padding:6px;border-radius:8px;font-size:12px;font-weight:700;">❌ إلغاء الطلب</div>
+                  </div>
+                </div>
+                <div class="wa-bubble sent">
+                  ✅ تأكيد الطلب
+                  <div class="wa-time" style="font-size:10px;color:#888;">ضغط الزرار 10:18 ✓✓</div>
+                </div>
+                <div class="wa-bubble received">
+                  ✅ شكراً! تم تأكيد طلبك وجاري التجهيز.
+                  <div class="wa-time">10:18 ✓✓</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════ TIPS ══════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">نصائح مهمة</div>
+    <div class="section-title">اعرفها قبل ما تبدأ</div>
+    <p class="section-desc">حاجات كتير ناس بتسأل عنها</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">💰</div>
+        <div class="tip-title">التكلفة قد إيه؟</div>
+        <div class="tip-text">Kapso بتتحسب على Conversation مش رسالة. أول 1000 conversation في الشهر <strong>مجاناً</strong>. بعدها حوالي $0.02 لكل conversation.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📞</div>
+        <div class="tip-title">لازم رقم منفصل؟</div>
+        <div class="tip-text">نعم، لازم رقم خصيص لـ WhatsApp Business — مش رقمك الشخصي. ممكن تاخد شريحة جديدة بـ 20-50 جنيه.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">⏳</div>
+        <div class="tip-title">ليه التيمبلت بطيء؟</div>
+        <div class="tip-text">Meta بتراجع كل Template عشان تضمن مش spam. Utility Templates بتتعتمد أسرع من Marketing. اصبر من يوم لـ 3 أيام.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🚚</div>
+        <div class="tip-title">رقم التتبع فين؟</div>
+        <div class="tip-text">البلجن بيدور على رقم التتبع تلقائياً من حقل <strong>_tracking_number</strong> في الأوردر. لو بتستخدم Bosta من الإعدادات، التتبع بيتسجل على الطلب. لو بلجن شحن تاني، ممكن يختلف اسم الحقل.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📦</div>
+        <div class="tip-title">Bosta والتذكير</div>
+        <div class="tip-text">تذكير و<strong>إلغاء</strong> الطلبات غير المؤكدة يعتمد على جدولة ووردبريس — تأكد أن <strong>WP-Cron</strong> يعمل أو ربط <strong>cron</strong> على السيرفر.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📊</div>
+        <div class="tip-title">لوحة WooKapso</div>
+        <div class="tip-text">راجع معدلات التأكيد والإلغاء والرسوم من القائمة <strong>WooKapso</strong> — مفيد لمتابعة أداء رسائل واتساب مقابل سلوك الطلبات.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🇪🇬</div>
+        <div class="tip-title">الأرقام المصرية</div>
+        <div class="tip-text">البلجن بيحوّل الأرقام تلقائياً. لو العميل كتب <strong>01012345678</strong> — بيتحول لـ <strong>+201012345678</strong> تلقائياً.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📋</div>
+        <div class="tip-title">السجلات والمتابعة</div>
+        <div class="tip-text">روح تبويب <strong>السجلات</strong> تقدر تشوف كل رسالة اتبعتت، وهل وصلت أم لأ، ومين بعت ومين استلم.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ FOOTER ══════════════════════════ -->
+<div class="footer">
+  <div class="footer-logo">📱 WooKapso v1.1.0</div>
+  <p>دليل الاستخدام — WooCommerce + Kapso WhatsApp Integration</p>
+  <p style="margin-top:8px;"><a href="https://hakimo-cv.vercel.app/hakimo">Ahmed Abdulhakim</a> - لأي مشكلة أو استفسار — تواصل مع المطوّر</p>
+</div>
+
+</body>
+</html>
