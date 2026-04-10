@@ -12,6 +12,7 @@ class WooKapso_Settings {
         add_action( 'admin_menu',            [ $this, 'add_menu' ] );
         add_action( 'admin_init',            [ $this, 'register_settings' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+        add_filter( 'option_page_capability_wookapso_group', [ $this, 'option_page_capability' ] );
 
         // AJAX
         add_action( 'wp_ajax_wookapso_test_conn',      [ $this, 'ajax_test_conn' ] );
@@ -20,6 +21,13 @@ class WooKapso_Settings {
         add_action( 'wp_ajax_wookapso_create_template', [ $this, 'ajax_create_template' ] );
         add_action( 'wp_ajax_wookapso_delete_template', [ $this, 'ajax_delete_template' ] );
         add_action( 'wp_ajax_wookapso_clear_logs',      [ $this, 'ajax_clear_logs' ] );
+    }
+
+    /**
+     * Allow Shop Managers (manage_woocommerce) to save options via options.php.
+     */
+    public function option_page_capability(): string {
+        return WooKapso_Capabilities::menu_capability();
     }
 
     // ── Menu ────────────────────────────────────────────────────────────────
